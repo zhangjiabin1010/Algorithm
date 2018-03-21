@@ -1,0 +1,28 @@
+#1：不考虑条件（行与列分别递增），直接遍历二维数组的行。然后检查数字是否在行中。
+
+def Find(target, array):
+        for row in array:
+            if target in row:
+                return True
+'''
+2：由于题目特点，每行每列都递增，则可以每次比较最右上角的数字，如果相等则返回，输入的数大于右上角的数，则排除这一行，输入的数小于右上角的数，则排除这一列。
+
+二维数组由上到下，由左到右递增，可以选取右上角或者左下角的元素a[row][col]与target进行比较，
+
+当target小于元素a[row][col]时，target必定在a[row][col]所在行的左边,
+
+当target大于元素a[row][col]时，target必定在a[row][col]所在列的下边
+'''
+
+def Find(target, array):
+#从右上角开始，即row=0，col要-1
+        row = 0
+        col = len(array[0]) - 1
+        while row < len(array) and col >= 0:
+            if array[row][col] == target:
+                return True
+            elif array[row][col] < target:
+                row += 1
+            else:
+                col -= 1
+        return False
