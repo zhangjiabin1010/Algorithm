@@ -1,0 +1,36 @@
+#递归实现
+def search(list1,item):
+    n = len(list1)
+    if len(list1) > 0:
+        mid = n // 2
+        if item == list1[mid]:
+            return True
+        elif item < list1[mid]:
+            return search(list1[:mid],item)
+        else:
+            return search(list1[mid+1:],item)
+    else:
+        return False
+
+list1 = [1,2,5,7,9]
+print(search(list1,5))
+
+
+#非递归实现
+def search(list1,item):
+    n = len(list1)
+    first = 0
+    last = n - 1
+    while first <= last:
+        mid = (first + last) // 2
+        if item == list1[mid]:
+            return True
+        elif item < list1[mid]:
+            last = mid - 1
+        else:
+            first = mid + 1
+    return False
+
+
+list1 = [1,2,5,7,9]
+print(search(list1,10))
