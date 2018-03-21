@@ -1,0 +1,29 @@
+'''
+实现思路，从26个字母+0-9数字中随机抽取 16位数字
+模块random模块方法说明
+random.random()函数是这个模块中最常用的方法了，它会生成一个随机的浮点数，范围是在0.0~1.0之间。
+random.uniform(a,b)正好弥补了上面函数的不足，它可以设定浮点数的范围，一个是上限，一个是下限。
+random.randint()随机生一个整数int类型，可以指定这个整数的范围，同样有上限和下限值，python random.randint。
+random.choice()可以从任何序列，比如list列表中，选取一个随机的元素返回，可以用于字符串、列表、元组等。
+random.shuffle()如果你想将一个序列中的元素，随机打乱的话可以用这个函数方法。
+random.sample(字符串,分割单位)可以从指定的序列中，随机的截取指定长度的片断，不作原地修改。
+'''
+import random,string
+
+#生成字母加数字随机数
+strs = string.digits + string.ascii_letters
+
+# 使用random.sample()方法，从strs里抽取4个元素 连接到字符串里
+def Random():
+    return ''.join(random.sample(strs,4))
+
+# 循环 group次，添加从Random()中得到的字符串
+def Group(group):
+    return '-'.join([Random() for i in range(group)])
+
+# 循环num次Group(4),添加到列表里
+def genetator(num):
+    return [Group(4) for i in range(num)]
+
+if __name__ == '__main__':
+    print(genetator(200))
