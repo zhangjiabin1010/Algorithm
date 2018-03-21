@@ -1,0 +1,43 @@
+'''
+假设有2个有序列表l1、l2，如何效率比较高的将2个list合并并保持有序状态，这里默认排序是正序。
+
+思路是比较简单的，无非是依次比较l1和l2头部第一个元素，将比较小的放在一个新的列表中，以此类推，直到所有的元素都被放到新的列表中。然后我们需要解决边界判断问题，即当l1或者l2有一个为空的时，将剩下的一个list加到排序结果的尾部。然后确保函数每次调用只处理一个元素，通过递归来解决问题。
+
+算法原理： 1. 将序列每相邻两个数字进行归并操作，形成序列，排序后每个序列包含两个元素 2. 将上述序列再次归并，形成序列，每个序列包含四个元素 3. 重复步骤2，直到所有元素排序完
+'''
+#1.尾递归
+def _recursion_merge_sort2(l1, l2, tmp):
+    if len(l1) == 0 or len(l2) == 0:
+        tmp.extend(l1)
+        tmp.extend(l2)
+        return tmp
+    else:
+        if l1[0] < l2[0]:
+            tmp.append(l1[0])
+            del l1[0]
+        else:
+            tmp.append(l2[0])
+            del l2[0]
+         #循环此方法，
+        return _recursion_merge_sort2(l1, l2, tmp)
+
+def recursion_merge_sort2(l1, l2):
+    return _recursion_merge_sort2(l1, l2, [])
+#2.循环算法
+'''
+思路：
+
+定义一个新的空列表 比较两个列表的首个元素 小的就插入到新列表里 把已经插入新列表的元素从旧列表删除 直到两个旧列表有一个为空 再把旧列表加到新列表后面
+'''
+def loop_merge_sort(l1, l2):
+    tmp = []
+    while len(l1) > 0 and len(l2) > 0:
+        if l1[0] < l2[0]:
+            tmp.append(l1[0])
+            del l1[0]
+        else:
+            tmp.append(l2[0])
+            del l2[0]
+    tmp.extend(l1)
+    tmp.extend(l2)
+    return tmp
