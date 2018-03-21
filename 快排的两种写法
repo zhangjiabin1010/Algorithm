@@ -1,0 +1,42 @@
+#中心思想，递归分割排序
+
+#标准写法
+def quicksort(L,first,last):
+    if first >= last:
+        return
+    mid = L[first]
+    low = first
+    high = last
+
+    while low < high:
+        while low < high and L[high] >= mid:
+            high -= 1
+        L[low] = L[high]
+
+        while low < high and L[low] < mid:
+            low += 1
+        L[high] = L[low]
+    # 跳出循环时，low == high
+    L[low] = mid
+    quicksort(L, first, low-1)
+    quicksort(L, low+1, last)
+
+
+L = [2,4,6,7,1,5]
+quicksort(L,0,len(L)-1)
+print(L)
+
+
+
+#简写
+def quicksort(list):
+    if len(list)<2:
+        return list
+    else:
+        midpivot = list[0]
+        lessbeforemidpivot = [i for i in list[1:] if i<=midpivot]
+        biggerafterpivot = [i for i in list[1:] if i > midpivot]
+        finallylist = quicksort(lessbeforemidpivot)+[midpivot]+quicksort(biggerafterpivot)
+        return finallylist
+
+print (quicksort([2,4,6,7,1,2,5]))
